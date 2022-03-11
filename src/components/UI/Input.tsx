@@ -13,13 +13,13 @@ interface amount {
   };
 }
 
-const Input = (props: amount) => {
+const Input = React.forwardRef((props: amount, ref: any) => {
   return (
     <div className={classes.input}>
       <label htmlFor={props.input.id}>{props.label}</label>
-      <input {...props.input} />
+      <input ref={ref} {...props.input} />
     </div>
   );
-};
+});
 
 export default Input;

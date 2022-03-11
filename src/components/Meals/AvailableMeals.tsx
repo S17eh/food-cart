@@ -41,6 +41,7 @@ const AvailableMeals: React.FC = () => {
   const meallist = DUMMY_MEALS.map((meal) => (
     <MealIteam
       id={meal.id}
+      key={meal.id}
       name={meal.name}
       description={meal.description}
       price={meal.price}

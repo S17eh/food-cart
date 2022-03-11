@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import CartContext from "../../../store/cart-context";
 import AmountForm from "./AmountForm";
 import classes from "./MealItem.module.css";
 
@@ -11,6 +12,17 @@ interface MealData {
 
 const MealIteam = (props: MealData) => {
   const price: string = `$${props.price.toFixed(2)}`;
+
+  const ctx = useContext(CartContext);
+  const addToCartHandler = (amount: number) => {
+    ctx.addItem({
+      id: props.id,
+      name: props.name,
+      amount: amount,
+      price: props.price,
+    });
+  };
+
   return (
     <div className={classes.meal}>
       <li>
@@ -19,7 +31,7 @@ const MealIteam = (props: MealData) => {
         <div className={classes.price}>{price}</div>
       </li>
       <div>
-        <AmountForm id={props.id} />
+        <AmountForm onAddToCart={addToCartHandler} id={props.id} />
       </div>
     </div>
   );
