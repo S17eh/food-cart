@@ -2,8 +2,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 22rem;
-  overflow: scroll;
+  max-height: 17.5rem;
+  overflow: auto;
 }
 
 .total {
@@ -17,6 +17,12 @@
 
 .actions {
   text-align: right;
+}
+
+.actions p {
+  text-align: center;
+  font-size: 1.3rem;
+  font: bold;
 }
 
 .actions button {

@@ -3,7 +3,13 @@ import classes from "./Modal.module.css";
 import ReactDOM from "react-dom";
 
 export interface InputWrapperProps {
-  children?: JSX.Element | JSX.Element[];
+  children?:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
   onClose?: React.MouseEventHandler<HTMLElement>;
 }
 

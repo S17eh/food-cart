@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../UI/Card";
 import classes from "./AvailableMeals.module.css";
 import MealIteam from "./MealIteam/MealIteam";
@@ -10,35 +10,46 @@ export interface DummyData {
   price: number;
 }
 
-const DUMMY_MEALS: DummyData[] = [
-  {
-    id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 22.99,
-  },
-  {
-    id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 16.5,
-  },
-  {
-    id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 12.99,
-  },
-  {
-    id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 18.99,
-  },
-];
-
 const AvailableMeals: React.FC = () => {
-  const meallist = DUMMY_MEALS.map((meal) => (
+  const [meals, setMeals] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, seterror] = useState<any>();
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      seterror(null);
+
+      const response = await fetch(
+        "https://movies-https-1cdd6-default-rtdb.firebaseio.com/meals.json"
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await response.json();
+      if (data === null) {
+        throw new Error("Something went wrong");
+      }
+      let fetchedMeals = [];
+
+      for (let key in data) {
+        fetchedMeals.push({
+          id: key,
+          name: data[key].name,
+          description: data[key].description,
+          price: data[key].price,
+        });
+      }
+      setMeals(fetchedMeals);
+      setIsLoading(false);
+    };
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      seterror(error.message);
+      console.log(error.message);
+    });
+  }, []);
+
+  const meallist = meals.map((meal: DummyData) => (
     <MealIteam
       id={meal.id}
       key={meal.id}
@@ -51,7 +62,9 @@ const AvailableMeals: React.FC = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{meallist}</ul>
+        {!isLoading && !error && <ul>{meallist}</ul>}
+        {isLoading && !error && <p>Loading Meals⚡...</p>}
+        {error && <p>Something went wrong !</p>}
       </Card>
     </section>
   );

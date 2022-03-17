@@ -10,7 +10,7 @@ const CartItem = (props: cart) => {
   const price = `$${props.price.toFixed(2)}`;
 
   return (
-    <li className={classes["cart-item"]}>
+    <div className={classes["cart-item"]}>
       <div>
         <h2>{props.name}</h2>
         <div className={classes.summary}>
@@ -22,7 +22,7 @@ const CartItem = (props: cart) => {
         <button onClick={props.onRemove}>−</button>
         <button onClick={props.onAdd}>+</button>
       </div>
-    </li>
+    </div>
   );
 };
 

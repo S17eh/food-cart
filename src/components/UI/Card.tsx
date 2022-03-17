@@ -1,8 +1,15 @@
 import React from "react";
 import classes from "./Card.module.css";
-import { InputWrapperProps } from "./Modal";
 
-const Card = (props: InputWrapperProps) => {
+const Card = (props: {
+  children:
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
+}) => {
   return <div className={classes.card}>{props.children}</div>;
 };
 
