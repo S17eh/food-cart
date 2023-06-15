@@ -13,5 +13,5 @@ Order details are sent to backend.
 This project was developed with react.
 TypeScript is used for better industrial applicability.
 
-Live site : https://movies-https-1cdd6.web.app/
+Live site : https://movies-https-1cdd6.firebaseapp.com/
 
